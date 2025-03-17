@@ -1,12 +1,10 @@
 import math
 from circle import Circle
 
-def test_circle():
-    circle_check = Circle(10, "perimeter")
-    assert circle_check.__str__() == str(round(2 * math.pi * circle_check.radius, 2))
+def test_circle_perimeter():
+    circle_check = Circle(10)
+    assert circle_check.perimeter() == round(2 * math.pi * circle_check.radius, 2)
 
-    circle_check = Circle(10, "area")
-    assert circle_check.__str__() == str(round(math.pi * circle_check.radius ** 2, 2))
-
-    circle_check = Circle(10, "invalid")
-    assert circle_check.__str__() == "Invalid operation"
+def test_circle_area():
+    circle_check = Circle(10)
+    assert circle_check.area() == round(math.pi * circle_check.radius ** 2, 2)

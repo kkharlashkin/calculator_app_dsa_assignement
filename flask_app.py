@@ -4,7 +4,7 @@ from helper import perform_calculation, convert_to_float
 
 from circle import Circle
 
-app = Flask(__name__)  # create the instance of the flask class
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -45,11 +45,21 @@ def calculate():
 def circle():
     if request.method == 'POST':
         radius = request.form['radius']
-        operation = str(request.form['operation'])
+        operation = request.form['operation']
+
         try:
             radius = float(radius)
-            result = Circle(radius=radius, operation=operation)
+            circle_instance = Circle(radius)
+
+            if operation == 'perimeter':
+                result = circle_instance.perimeter()
+            elif operation == 'area':
+                result = circle_instance.area()
+            else:
+                return render_template('circle.html', printed_result="Invalid operation")
+
             return render_template('circle.html', printed_result=str(result))
+
         except ValueError:
             return render_template('circle.html', printed_result="Invalid input")
 
